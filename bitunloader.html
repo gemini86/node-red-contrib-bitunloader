@@ -1,0 +1,62 @@
+<script type="text/javascript">
+    RED.nodes.registerType('bitunloader',{
+        category: 'function',
+        color: '#a6bbcf',
+        defaults: {
+            name: {value:""},
+            mode: {value:"string",required:true},
+            prop: {value:"payload"},
+            padding: {value:"none"},
+        },
+        inputs:1,
+        outputs:1,
+        icon: "file.png",
+        label: function() {
+            return this.name||"bitunloader";
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="bitunloader">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-prop"><i class="icon-tag"></i> Msg.</label>
+        <input type="text" id="node-input-prop" placeholder="payload">
+    </div>
+    <div class="form-row">
+        <label for="node-input-mode"><i class="icon-tag"></i> Mode</label>
+        <select id="node-input-mode">
+            <option value="string" selected="selected">Binary string</option>
+            <option value="arrayBits">Array of bits</option>
+            <option value="arrayBools">Array of bools</option>
+            <option value="objectBits">Object of bits</option>
+            <option value="objectBools">Object of bools</option>
+        </select>
+    </div>
+    <div class="form-row">
+        <label for="node-input-padding"><i class="icon-tag"></i> Pad with zeros</label>
+        <select id="node-input-padding">
+            <option value="none" selected="selected">None</option>
+            <option value="8">8 bit length</option>
+            <option value="16">16 bit length</option>
+            <option value="32">32 bit length</option>
+        </select>
+</script>
+
+<script type="text/x-red" data-help-name="bitunloader">
+<p>Converts whole numbers to a form of binary output</p>
+
+ <h3>Details</h3>
+    <p>The poperty specified in the <code>Msg.</code> box is converted to a binary output form based on the "mode" option.
+    <code>Binary String</code> outputs a binary string with LSB on the right.
+    <code>Array of bits</code> outputs an array of 1s and/or 0s.
+    <code>Array of bools</code> outputs an array of boolean <code>true</code> or <code>false</code>.
+    <code>Object of bits</code> outputs an Object of 1s and/or 0s with the Object keys representing the bit address.
+    <code>Object of bools</code> outputs an Object of boolean <code>true</code> or <code>false</code> with the Object keys representing the bit address.
+    </p>
+    <p><code>Pad with zeros</code> adds the specified number of leading zeros to the output to represent the true length of the bits of the number.</p>
+
+</script>
