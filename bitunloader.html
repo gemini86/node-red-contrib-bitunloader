@@ -1,7 +1,7 @@
 <script type="text/javascript">
     RED.nodes.registerType('bitunloader',{
         category: 'function',
-        color: '#a6bbcf',
+        color: '#AAAA66',
         defaults: {
             name: {value:""},
             mode: {value:"string",required:true},
@@ -10,7 +10,7 @@
         },
         inputs:1,
         outputs:1,
-        icon: "file.png",
+        icon: "binary_40x60.png",
         label: function() {
             return this.name||"bitunloader";
         }
@@ -50,12 +50,14 @@
 <p>Converts whole numbers to a form of binary output</p>
 
  <h3>Details</h3>
-    <p>The poperty specified in the <code>Msg.</code> box is converted to a binary output form based on the "mode" option.
-    <code>Binary String</code> outputs a binary string with LSB on the right.
-    <code>Array of bits</code> outputs an array of 1s and/or 0s.
-    <code>Array of bools</code> outputs an array of boolean <code>true</code> or <code>false</code>.
-    <code>Object of bits</code> outputs an Object of 1s and/or 0s with the Object keys representing the bit address.
-    <code>Object of bools</code> outputs an Object of boolean <code>true</code> or <code>false</code> with the Object keys representing the bit address.
+    <p>The poperty specified in the <code>Msg.</code> box is converted to a binary output form based on the <code>mode</code> option:<br>
+    <ul>
+        <li><code>Binary String</code> outputs a binary string with LSB on the right.</li>
+        <li><code>Array of bits</code> outputs an array of 1s and/or 0s.</li>
+        <li><code>Array of bools</code> outputs an array of boolean <code>true</code> or <code>false</code>.</li>
+        <li><code>Object of bits</code> outputs an Object of 1s and/or 0s with the Object keys representing the bit address.</li>
+        <li><code>Object of bools</code> outputs an Object of boolean <code>true</code> or <code>false</code> with the Object keys representing the bit address.</li>
+    </ul>
     </p>
     <p><code>Pad with zeros</code> adds the specified number of leading zeros to the output to represent the true length of the bits of the number.</p>
 
