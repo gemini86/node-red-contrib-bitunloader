@@ -13,9 +13,9 @@ module.exports = function (RED) {
 			};
 			const throwError = e => {
 				if (done) {
-					done({error: e, msg});
+					done(`${e}:\n${JSON.stringify(msg, null, 2)}`);
 				} else {
-					node.error(e, msg);
+					node.error(`${e}:\n${JSON.stringify(msg, null, 2)}`);
 				}
 			};
 			var p = dot.pick(this.prop, msg);
@@ -23,7 +23,7 @@ module.exports = function (RED) {
 				throwError(`Property ${this.prop} is undefined`);
 			} else {
 				if (isNaN(p)) {
-					throwError('Input is not a number or parseable string.');
+					throwError('Input is not a number or parsable string.');
 				} else {
 					if (this.mode === 'string') {
 						p = p.toString(2).padStart(this.padding, '0');
