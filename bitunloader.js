@@ -11,19 +11,19 @@ module.exports = function (RED) {
 			send = send || function () {
 				node.send.apply(node, arguments);
 			};
-			const throwError = (e,msg) => {
+			const errorHandler = (e, msg) => {
 				if (done) {
-					done({error: e, msg: msg});
+					done(e);
 				} else {
 					node.error({error: e, msg: msg});
 				}
 			};
 			var p = dot.pick(this.prop, msg);
 			if (p == undefined) {
-				throwError(`Property ${this.prop} is undefined`, msg);
+				errorHandler(`Property ${this.prop} is undefined`, msg);
 			} else {
 				if (isNaN(p)) {
-					throwError('Input is not a number or parsable string.', msg);
+					errorHandler('Input is not a number or parseable string.', msg);
 				} else {
 					if (this.mode === 'string') {
 						p = p.toString(2).padStart(this.padding, '0');
