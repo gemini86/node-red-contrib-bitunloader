@@ -81,10 +81,23 @@
 </script>
 
 <script type="text/x-red" data-help-name="bitunloader">
-<p>Converts whole numbers to a form of binary output</p>
-
- <h3>Details</h3>
-    <p>The poperty specified in the <code>Msg.</code> box is converted to a binary output form based on the <code>mode</code> option:<br>
+    <p>Converts whole numbers to a form of binary output.</p>
+    <h3>Inputs</h3>
+        <dl class="message-properties">
+            <dt class="optional">prop <span class="property-type">string</span></dt>
+            <dd> defines the msg property to perform conversion on.</dd>
+        </dl>
+     <h3>Outputs</h3>
+         <ol class="node-ports">
+             <li>Standard output
+                 <dl class="message-properties">
+                     <dt>msg <span class="property-type">string</span></dt>
+                     <dd>the msg object is passed with only the configured (or dynamically defined) property modified per the node configuration.</dd>
+                 </dl>
+             </li>
+         </ol>
+    <h3>Details</h3>
+    <p>The property specified in the <code>Property</code> field is converted to a binary output form based on the <code>Output</code> option:<br>
     <ul>
         <li><code>Binary String</code> outputs a binary string with LSB on the right.</li>
         <li><code>Array of bits</code> outputs an array of 1s and/or 0s.</li>
@@ -93,6 +106,5 @@
         <li><code>Object of bools</code> outputs an Object of boolean <code>true</code> or <code>false</code> with the Object keys representing the bit address.</li>
     </ul>
     </p>
-    <p><code>Pad with zeros</code> adds the specified number of leading zeros to the output to represent the true length of the bits of the number.</p>
-
+    <p><code>Pad with zeros</code> adds the specified number of leading zeros to the output to fill the result to the length configured. eg. <code>"101"</code> bedcomes <code>"00000101"</code> when set to 8.</p>
 </script>
