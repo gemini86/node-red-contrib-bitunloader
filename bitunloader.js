@@ -18,6 +18,9 @@ module.exports = function (RED) {
 					node.error(e, msg);
 				}
 			};
+			if (msg.prop != undefined && typeof msg.prop == 'string') {
+				this.prop = msg.prop;
+			}
 			var p = dot.pick(this.prop, msg);
 			if (p == undefined) {
 				errorHandler(`Property ${this.prop} is undefined`, msg);
