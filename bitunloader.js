@@ -15,7 +15,7 @@ module.exports = function (RED) {
 				if (done) {
 					done(e);
 				} else {
-					node.error(e, msg);
+					node.error({error: e, msg: msg});
 				}
 			};
 			var p = dot.pick(this.prop, msg);

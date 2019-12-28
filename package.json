@@ -3,6 +3,9 @@
     "version": "0.2.0",
     "description": "Unload numbers to a binary string, array of bits, array of bools, object of bits, or object of bools.",
     "main": "bitunloader.js",
+    "scripts": {
+        "test": "mocha \"bitunloader_spec.js\""
+    },
     "author": "Rodney C",
     "license": "ISC",
     "keywords": [
@@ -18,9 +21,11 @@
         }
     },
     "devDependencies": {
+        "eslint": "^6.8.0",
         "mocha": "^6.2.2",
-        "node-red": "^1.0.3",
-        "node-red-node-test-helper": "^0.1.8"
+        "node-red": "^0.18.7",
+        "node-red-node-test-helper": "^0.1.8",
+        "should": "^13.2.3"
     },
     "dependencies": {
         "dot-object": "^2.1.2"
