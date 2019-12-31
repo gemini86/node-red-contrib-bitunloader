@@ -4,7 +4,7 @@
     "description": "Unload numbers to a binary string, array of bits, array of bools, object of bits, or object of bools.",
     "main": "bitunloader.js",
     "scripts": {
-        "test": "mocha \"bitunloader_spec.js\""
+        "test": "mocha \"/test/bitunloader_spec.js\""
     },
     "author": "Rodney C",
     "license": "ISC",
@@ -18,7 +18,7 @@
     ],
     "node-red": {
         "nodes": {
-            "bitunloader": "bitunloader.js"
+            "bitunloader": "/src/bitunloader.js"
         }
     },
     "devDependencies": {
@@ -29,7 +29,8 @@
         "should": "^13.2.3"
     },
     "dependencies": {
-        "dot-object": "^2.1.2"
+        "dot-object": "^2.1.2",
+        "bitunloader": "^1.0.0"
     },
     "repository": "github:gemini86/node-red-contrib-bitunloader"
 }
