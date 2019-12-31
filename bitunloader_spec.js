@@ -1,4 +1,4 @@
-var should = require('should');
+var should = require('should'); //eslint-disable-line no-unused-vars
 var helper = require('node-red-node-test-helper');
 var bitunloaderNode = require('./bitunloader.js');
 
@@ -48,7 +48,7 @@ describe('bitunloader Node', function () {
 		var flow = [{ id: 'n1', type: 'bitunloader', name: 'test name', prop: 'payload.number' }];
 		helper.load(bitunloaderNode, flow, function () {
 			var n1 = helper.getNode('n1');
-			const testMsg = { payload: { number: [5,24,86] } };
+			const testMsg = { payload: { number: 'String' } };
 			n1.receive(testMsg);
 			try {
 				helper.log().called.should.be.true();

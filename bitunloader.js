@@ -18,15 +18,13 @@ module.exports = function (RED) {
 					node.error({error: e, msg: msg});
 				}
 			};
-			if (msg.prop != undefined && typeof msg.prop == 'string') {
-				this.prop = msg.prop;
-			}
 			var p = dot.pick(this.prop, msg);
 			if (p == undefined) {
 				errorHandler(`Property ${this.prop} is undefined`, msg);
 			} else {
+				p = Math.abs(parseInt(p));
 				if (isNaN(p)) {
-					errorHandler('Input is not a number or parseable string.', msg);
+					errorHandler('Input is not a number or parsable string.', msg);
 				} else {
 					if (this.mode === 'string') {
 						p = p.toString(2).padStart(this.padding, '0');
