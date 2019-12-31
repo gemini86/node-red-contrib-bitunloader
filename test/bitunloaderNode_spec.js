@@ -78,8 +78,7 @@ describe('bitunloader Node', function () {
 			try {
 				n2.on('input', function (msg) {
 					msg.should.have.property('payload');
-					msg.payload.should.have.property('number').which.is.a.String();
-					msg.payload.number.should.exactly('11');
+					msg.payload.should.have.property('number', '11');
 					done();
 				});
 			} catch (error) {
@@ -142,10 +141,8 @@ describe('bitunloader Node', function () {
 				n2.on('input', function (msg) {
 					msg.should.have.property('payload');
 					msg.payload.should.have.property('number').which.is.an.Object();
-					msg.payload.number.should.have.ownProperty('0');
-					msg.payload.number.should.have.ownProperty('1');
-					msg.payload.number['0'].should.be.exactly(0);
-					msg.payload.number['1'].should.be.exactly(1);
+					msg.payload.number.should.have.ownProperty('b0', 0);
+					msg.payload.number.should.have.ownProperty('b1', 1);
 					done();
 				});
 			} catch (error) {
@@ -165,10 +162,10 @@ describe('bitunloader Node', function () {
 				n2.on('input', function (msg) {
 					msg.should.have.property('payload');
 					msg.payload.should.have.property('number').which.is.an.Object();
-					msg.payload.number.should.have.ownProperty('0');
-					msg.payload.number.should.have.ownProperty('1');
-					msg.payload.number['0'].should.be.exactly(false);
-					msg.payload.number['1'].should.be.exactly(true);
+					msg.payload.number.should.have.ownProperty('b0');
+					msg.payload.number.should.have.ownProperty('b1');
+					msg.payload.number['b0'].should.be.false;
+					msg.payload.number['b1'].should.be.true;
 					done();
 				});
 			} catch (error) {
@@ -189,10 +186,10 @@ describe('bitunloader Node', function () {
 					msg.should.have.property('payload');
 					msg.should.have.property('topic', 'unchanged');
 					msg.payload.should.have.property('number').which.is.an.Array();
-					msg.payload.number[0].should.have.ownProperty('0');
-					msg.payload.number[0].should.have.ownProperty('1');
-					msg.payload.number[0]['0'].should.be.false();
-					msg.payload.number[0]['1'].should.be.true();
+					msg.payload.number[0].should.have.ownProperty('b0');
+					msg.payload.number[0].should.have.ownProperty('b1');
+					msg.payload.number[0]['b0'].should.be.false;
+					msg.payload.number[0]['b1'].should.be.true;
 					msg.payload.number[1].should.equal(100);
 					done();
 				});
@@ -212,10 +209,17 @@ describe('bitunloader Node', function () {
 			try {
 				n2.on('input', function (msg) {
 					msg.should.have.property('payload');
-					msg.payload.should.have.property('number').which.is.an.Array();
+					msg.payload.should.have.property('number');
+					msg.payload.number.should.be.an.Array();
 					msg.payload.number.should.have.length(8);
-					msg.payload.number[0].should.be.false();
-					msg.payload.number[1].should.be.true();
+					msg.payload.number[0].should.be.false;
+					msg.payload.number[1].should.be.true;
+					msg.payload.number[2].should.be.false;
+					msg.payload.number[3].should.be.false;
+					msg.payload.number[4].should.be.false;
+					msg.payload.number[5].should.be.false;
+					msg.payload.number[6].should.be.false;
+					msg.payload.number[7].should.be.false;
 					done();
 				});
 			} catch (error) {

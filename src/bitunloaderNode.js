@@ -1,5 +1,5 @@
 const dot = require('dot-object');
-const bu = require('bitunloader');
+const unloader = require('bitunloader');
 
 module.exports = function (RED) {
 	function BitUnloaderNode(config) {
@@ -20,20 +20,20 @@ module.exports = function (RED) {
 				}
 			};
 			this.switchMode = {
-				string: function () {
-					return bu(p, {padding: this.padding});
+				string: function (input, pad) {
+					return unloader(input, {padding: pad});
 				},
-				arrayBits: function () {
-					return bu({mode: 'array', type: 'bit', padding: this.padding});
+				arrayBits: function (input, pad) {
+					return unloader(input, {mode: 'array', type: 'bit', padding: pad});
 				},
-				arrayBools: function () {
-					return bu({mode: 'array', type: 'bool', padding: this.padding});
+				arrayBools: function (input, pad) {
+					return unloader(input, {mode: 'array', type: 'bool', padding: pad});
 				},
-				objectBits: function () {
-					return bu({mode: 'object', type: 'bit', padding: this.padding});
+				objectBits: function (input, pad) {
+					return unloader(input, {mode: 'object', type: 'bit', padding: pad});
 				},
-				objectBools: function () {
-					return bu({mode: 'object', type: 'bool', padding: this.padding});
+				objectBools: function (input, pad) {
+					return unloader(input, {mode: 'object', type: 'bool', padding: pad});
 				}
 			};
 			var p = dot.pick(this.prop, msg);
@@ -45,40 +45,11 @@ module.exports = function (RED) {
 					errorHandler('Input is not a number or parsable string.', msg);
 				} else {
 					try {
-						this.switchMode[this.mode]();
+						p = this.switchMode[this.mode](p, this.padding);
 					} catch (err) {
 						errorHandler(err, msg);
 					}
 				}
-				/*
-				if (this.mode === 'string') {
-					p = p.toString(2).padStart(this.padding, '0');
-				} else if (this.mode === 'arrayBits') {
-					p = p.toString(2).padStart(this.padding, '0').split('').reverse();
-					for (var i in p) {
-						p[i] = Number(p[i]);
-					}
-				} else if (this.mode === 'arrayBools') {
-					p = p.toString(2).padStart(this.padding, '0').split('').reverse();
-					for (let i in p) {
-						p[i] = p[i] == '1' ? true : false;
-					}
-				} else if (this.mode === 'objectBits') {
-					p = p.toString(2).padStart(this.padding, '0').split('').reverse();
-					let obj = {};
-					for (let i in p) {
-						obj[i] = Number(p[i]);
-					}
-					p = obj;
-				} else if (this.mode === 'objectBools') {
-					p = p.toString(2).padStart(this.padding, '0').split('').reverse();
-					let obj = {};
-					for (let i in p) {
-						obj[i] = p[i] == '1' ? true : false;
-					}
-					p = obj;
-				}
-				*/
 				dot.str(this.prop, p, msg);
 				send(msg);
 				if (done) {
