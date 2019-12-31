@@ -49,13 +49,13 @@
     });
 </script>
 
-<script type="text/x-red" data-template-name="bitunloader">
+<script type="text/html" data-template-name="bitunloader">
     <div class="form-row">
-        <label for="node-input-prop"><i class="fa fa-ellipsis-h"></i> Property</label>
+        <label for="node-input-prop" style="width:100px;"><i class="fa fa-ellipsis-h"></i> Property</label>
         <input type="text" id="node-input-prop" placeholder="payload" style="width:70%;">
     </div>
     <div class="form-row">
-        <label for="node-input-mode"><i class="fa fa-sign-out"></i> Output</label>
+        <label for="node-input-mode" style="width:100px;"><i class="fa fa-sign-out"></i> Output</label>
         <select id="node-input-mode">
             <option value="string" selected="selected">Binary string</option>
             <option value="arrayBits">Array of bits</option>
@@ -65,7 +65,7 @@
         </select>
     </div>
     <div class="form-row">
-        <label for="node-input-padding"><i class="fa fa-angle-double-left"></i> Pad with zeros</label>
+        <label for="node-input-padding" style="width:100px;"><i class="fa fa-angle-double-left"></i> Pad with zeros</label>
         <select id="node-input-padding">
             <option value="none" selected="selected">None</option>
             <option value="8">8 bit length</option>
@@ -73,13 +73,13 @@
             <option value="32">32 bit length</option>
         </select>
     </div>
-    <div class="form-row">
+    <div class="form-row" style="width:100px;">
         <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
 </script>
 
-<script type="text/x-red" data-help-name="bitunloader">
+<script type="text/html" data-help-name="bitunloader">
     <p>Converts whole numbers to a form of binary output.</p>
     <h3>Details</h3>
     <p><b>Note: works with positive numbers only</b> <br>Sending an array defaults to the first index being converted.</p>
