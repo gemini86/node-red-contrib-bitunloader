@@ -30,6 +30,10 @@
         "semi": [
             "warn",
             "always"
+        ],
+        "complexity": [
+            "warn",
+            6
         ]
     }
 }
