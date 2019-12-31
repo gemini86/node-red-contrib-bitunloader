@@ -1,5 +1,5 @@
 const dot = require('dot-object');
-const unload = require('bitunloader');
+const bu = require('bitunloader');
 
 module.exports = function (RED) {
 	function BitUnloaderNode(config) {
@@ -21,19 +21,19 @@ module.exports = function (RED) {
 			};
 			this.switchMode = {
 				string: function () {
-					return unload(p, {padding: this.padding});
+					return bu(p, {padding: this.padding});
 				},
 				arrayBits: function () {
-					return unload({mode: 'array', type: 'bit', padding: this.padding});
+					return bu({mode: 'array', type: 'bit', padding: this.padding});
 				},
 				arrayBools: function () {
-					return unload({mode: 'array', type: 'bool', padding: this.padding});
+					return bu({mode: 'array', type: 'bool', padding: this.padding});
 				},
 				objectBits: function () {
-					return unload({mode: 'object', type: 'bit', padding: this.padding});
+					return bu({mode: 'object', type: 'bit', padding: this.padding});
 				},
 				objectBools: function () {
-					return unload({mode: 'object', type: 'bool', padding: this.padding});
+					return bu({mode: 'object', type: 'bool', padding: this.padding});
 				}
 			};
 			var p = dot.pick(this.prop, msg);

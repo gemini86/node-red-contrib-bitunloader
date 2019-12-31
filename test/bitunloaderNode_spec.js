@@ -1,6 +1,6 @@
 var should = require('should'); //eslint-disable-line no-unused-vars
 var helper = require('node-red-node-test-helper');
-var bitunloaderNode = require('../src/bitunloader.js');
+var bitunloaderNode = require('../src/bitunloader');
 
 helper.init(require.resolve('node-red'));
 

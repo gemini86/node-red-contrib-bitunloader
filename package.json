@@ -2,9 +2,9 @@
     "name": "node-red-contrib-bitunloader",
     "version": "0.2.3",
     "description": "Unload numbers to a binary string, array of bits, array of bools, object of bits, or object of bools.",
-    "main": "bitunloader.js",
+    "main": "./src/bitunloaderNode.js",
     "scripts": {
-        "test": "mocha \"/test/bitunloader_spec.js\""
+        "test": "mocha \"./test/bitunloaderNode_spec.js\""
     },
     "author": "Rodney C",
     "license": "ISC",
@@ -18,7 +18,7 @@
     ],
     "node-red": {
         "nodes": {
-            "bitunloader": "/src/bitunloader.js"
+            "bitunloader": "./src/bitunloaderNode.js"
         }
     },
     "devDependencies": {
@@ -29,8 +29,8 @@
         "should": "^13.2.3"
     },
     "dependencies": {
-        "dot-object": "^2.1.2",
-        "bitunloader": "^1.0.0"
+        "bitunloader": "^1.1.0",
+        "dot-object": "^2.1.2"
     },
     "repository": "github:gemini86/node-red-contrib-bitunloader"
 }
