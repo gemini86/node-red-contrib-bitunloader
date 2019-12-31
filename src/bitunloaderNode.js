@@ -41,6 +41,7 @@ module.exports = function (RED) {
 				errorHandler(`Property ${this.prop} is undefined`, msg);
 			} else {
 				p = Math.abs(parseInt(p));
+				console.log(p);
 				if (isNaN(p)) {
 					errorHandler('Input is not a number or parsable string.', msg);
 				} else {

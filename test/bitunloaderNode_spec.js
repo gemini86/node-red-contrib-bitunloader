@@ -69,6 +69,29 @@ describe('bitunloader Node', function () {
 		});
 	});
 
+	it('should reject arrays', function (done) {
+		var flow = [{ id: 'n1', type: 'bitunloader', name: 'test name', prop: 'payload.number', mode: 'string', padding: 'none', wires:[['n2']] }];
+		helper.load(bitunloaderNode, flow, function () {
+			var n1 = helper.getNode('n1');
+			n1.receive({ payload: {number: [6,3] } });
+			try {
+				helper.log().called.should.be.true();
+				var logEvents = helper.log().args.filter(function(evt) {
+					return evt[0].type == 'bitunloader';
+				});
+				logEvents.should.have.length(1);
+				var msg = logEvents[0][0];
+				msg.should.have.property('level', helper.log().ERROR);
+				msg.should.have.property('id', 'n1');
+				msg.should.have.property('type', 'bitunloader');
+				msg.msg.should.have.property('error', 'Input is not a number or parsable string.');
+				msg.msg.should.have.property('msg', [6,3]);
+			} catch (err) {
+				done(err);
+			}
+		});
+	});
+
 	it('should output a binary string', function (done) {
 		var flow = [{ id: 'n1', type: 'bitunloader', name: 'test name', prop: 'payload.number', mode: 'string', padding: 'none', wires:[['n2']] },
 			{ id: 'n2', type: 'helper' }];
