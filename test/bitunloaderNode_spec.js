@@ -25,8 +25,7 @@ describe('bitunloader Node', function () {
 			var n1 = helper.getNode('n1');
 			const testMsg = { payload: { number: 5 } };
 			n1.receive(testMsg);
-			try {
-				helper.log().called.should.be.true();
+			setTimeout(function() {helper.log().called.should.be.true();
 				var logEvents = helper.log().args.filter(function(evt) {
 					return evt[0].type == 'bitunloader';
 				});
@@ -37,9 +36,7 @@ describe('bitunloader Node', function () {
 				msg.should.have.property('type', 'bitunloader');
 				msg.should.have.property('msg', 'Property undefined is undefined');
 				done();
-			} catch (err) {
-				done(err);
-			}
+			});
 		});
 	});
 
@@ -49,7 +46,7 @@ describe('bitunloader Node', function () {
 			var n1 = helper.getNode('n1');
 			const testMsg = { payload: { number: 'String' } };
 			n1.receive(testMsg);
-			try {
+			setTimeout(function () {
 				helper.log().called.should.be.true();
 				var logEvents = helper.log().args.filter(function(evt) {
 					return evt[0].type == 'bitunloader';
@@ -61,9 +58,7 @@ describe('bitunloader Node', function () {
 				msg.should.have.property('type', 'bitunloader');
 				msg.should.have.property('msg', 'Input is not a number or parsable string.');
 				done();
-			} catch (err) {
-				done(err);
-			}
+			});
 		});
 	});
 
@@ -72,7 +67,7 @@ describe('bitunloader Node', function () {
 		helper.load(bitunloaderNode, flow, function () {
 			var n1 = helper.getNode('n1');
 			n1.receive({ payload: [6,3] });
-			try {
+			setTimeout(function() {
 				helper.log().called.should.be.true();
 				var logEvents = helper.log().args.filter(function(evt) {
 					return evt[0].type == 'bitunloader';
@@ -84,9 +79,47 @@ describe('bitunloader Node', function () {
 				msg.should.have.property('type', 'bitunloader');
 				msg.should.have.property('msg', 'Input is not a number or parsable string.');
 				done();
-			} catch (error) {
-				done(error);
+			});
+		});
+	});
+
+	it('should handle negative numbers', function (done) {
+		var flow = [{ id: 'n1', type: 'bitunloader', name: 'test name', prop: 'payload.number', mode: 'string', padding: 'none', wires:[['n2']] },
+			{ id: 'n2', type: 'helper' }];
+		helper.load(bitunloaderNode, flow, function () {
+			var n2 = helper.getNode('n2');
+			var n1 = helper.getNode('n1');
+			try {
+				n2.on('input', function (msg) {
+					msg.should.have.property('payload');
+					msg.payload.should.have.property('number', '101');
+				});
+			} catch (err) {
+				done(err);
 			}
+			n1.receive({ payload: {number: -5 } });
+			done();
+
+		});
+	});
+
+	it('should handle floating point numbers as whole numbers', function (done) {
+		var flow = [{ id: 'n1', type: 'bitunloader', name: 'test name', prop: 'payload.number', mode: 'string', padding: 'none', wires:[['n2']] },
+			{ id: 'n2', type: 'helper' }];
+		helper.load(bitunloaderNode, flow, function () {
+			var n2 = helper.getNode('n2');
+			var n1 = helper.getNode('n1');
+			try {
+				n2.on('input', function (msg) {
+					msg.should.have.property('payload');
+					msg.payload.should.have.property('number');
+					msg.payload.should.be.exactly('101');
+				});
+			} catch(err) {
+				done(err);
+			}
+			n1.receive({ payload: {number: 5.5 } });
+			done();
 		});
 	});
 
@@ -100,12 +133,12 @@ describe('bitunloader Node', function () {
 				n2.on('input', function (msg) {
 					msg.should.have.property('payload');
 					msg.payload.should.have.property('number', '11');
-					done();
 				});
-			} catch (error) {
-				done(error);
+			} catch (err) {
+				done(err);
 			}
 			n1.receive({ payload: {number: 3 } });
+			done();
 		});
 	});
 
@@ -122,12 +155,12 @@ describe('bitunloader Node', function () {
 					msg.payload.number.should.have.length(2);
 					msg.payload.number[0].should.be.exactly(1);
 					msg.payload.number[1].should.be.exactly(1);
-					done();
 				});
-			} catch (error) {
-				done(error);
+			} catch (err) {
+				done(err);
 			}
 			n1.receive({ payload: {number: 3 } });
+			done();
 		});
 	});
 
@@ -143,12 +176,12 @@ describe('bitunloader Node', function () {
 					msg.payload.should.have.property('number').which.is.an.Array();
 					msg.payload.number[0].should.equal(false);
 					msg.payload.number[1].should.equal(true);
-					done();
 				});
-			} catch (error) {
-				done(error);
+			} catch (err) {
+				done(err);
 			}
 			n1.receive({ payload: {number: 2 } });
+			done();
 		});
 	});
 
@@ -164,12 +197,12 @@ describe('bitunloader Node', function () {
 					msg.payload.should.have.property('number').which.is.an.Object();
 					msg.payload.number.should.have.ownProperty('b0', 0);
 					msg.payload.number.should.have.ownProperty('b1', 1);
-					done();
 				});
-			} catch (error) {
-				done(error);
+			} catch (err) {
+				done(err);
 			}
 			n1.receive({ payload: {number: 2 } });
+			done();
 		});
 	});
 
@@ -187,12 +220,12 @@ describe('bitunloader Node', function () {
 					msg.payload.number.should.have.ownProperty('b1');
 					msg.payload.number['b0'].should.be.false;
 					msg.payload.number['b1'].should.be.true;
-					done();
 				});
-			} catch (error) {
-				done(error);
+			} catch (err) {
+				done(err);
 			}
 			n1.receive({ payload: {number: 2 } });
+			done();
 		});
 	});
 
@@ -212,12 +245,12 @@ describe('bitunloader Node', function () {
 					msg.payload.number[0]['b0'].should.be.false;
 					msg.payload.number[0]['b1'].should.be.true;
 					msg.payload.number[1].should.equal(100);
-					done();
 				});
-			} catch (error) {
-				done(error);
+			} catch (err) {
+				done(err);
 			}
 			n1.receive({ topic: 'unchanged', payload: {number: [2,100] } });
+			done();
 		});
 	});
 
@@ -241,12 +274,12 @@ describe('bitunloader Node', function () {
 					msg.payload.number[5].should.be.false;
 					msg.payload.number[6].should.be.false;
 					msg.payload.number[7].should.be.false;
-					done();
 				});
-			} catch (error) {
-				done(error);
+			} catch (err) {
+				done(err);
 			}
 			n1.receive({ topic: 'unchanged', payload: {number: 2 } });
+			done();
 		});
 	});
 });
