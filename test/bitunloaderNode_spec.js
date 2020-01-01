@@ -35,12 +35,11 @@ describe('bitunloader Node', function () {
 				msg.should.have.property('level', helper.log().ERROR);
 				msg.should.have.property('id', 'n1');
 				msg.should.have.property('type', 'bitunloader');
-				msg.msg.should.have.property('error', 'Property undefined is undefined');
-				msg.msg.should.have.property('msg', testMsg);
+				msg.should.have.property('msg', 'Property undefined is undefined');
+				done();
 			} catch (err) {
 				done(err);
 			}
-			done();
 		});
 	});
 
@@ -60,20 +59,19 @@ describe('bitunloader Node', function () {
 				msg.should.have.property('level', helper.log().ERROR);
 				msg.should.have.property('id', 'n1');
 				msg.should.have.property('type', 'bitunloader');
-				msg.msg.should.have.property('error', 'Input is not a number or parsable string.');
-				msg.msg.should.have.property('msg', testMsg);
+				msg.should.have.property('msg', 'Input is not a number or parsable string.');
+				done();
 			} catch (err) {
 				done(err);
 			}
-			done();
 		});
 	});
 
 	it('should reject arrays', function (done) {
-		var flow = [{ id: 'n1', type: 'bitunloader', name: 'test name', prop: 'payload.number', mode: 'string', padding: 'none', wires:[['n2']] }];
+		var flow = [{ id: 'n1', type: 'bitunloader', name: 'test name', prop: 'payload', mode: 'string', padding: 'none', wires:[['n2']] }];
 		helper.load(bitunloaderNode, flow, function () {
 			var n1 = helper.getNode('n1');
-			n1.receive({ payload: {number: [6,3] } });
+			n1.receive({ payload: [6,3] });
 			try {
 				helper.log().called.should.be.true();
 				var logEvents = helper.log().args.filter(function(evt) {
@@ -84,10 +82,10 @@ describe('bitunloader Node', function () {
 				msg.should.have.property('level', helper.log().ERROR);
 				msg.should.have.property('id', 'n1');
 				msg.should.have.property('type', 'bitunloader');
-				msg.msg.should.have.property('error', 'Input is not a number or parsable string.');
-				msg.msg.should.have.property('msg', [6,3]);
-			} catch (err) {
-				done(err);
+				msg.should.have.property('msg', 'Input is not a number or parsable string.');
+				done();
+			} catch (error) {
+				done(error);
 			}
 		});
 	});
