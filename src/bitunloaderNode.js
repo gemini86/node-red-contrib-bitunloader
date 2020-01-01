@@ -12,11 +12,11 @@ module.exports = function (RED) {
 			send = send || function () {
 				node.send.apply(node, arguments);
 			};
-			const errorHandler = (e, msg) => {
+			this.errorHandler = (e, msg) => {
 				if (done) {
 					done(e);
 				} else {
-					node.error({error: e, msg: msg});
+					node.error(e, msg);
 				}
 			};
 			this.switchMode = {
@@ -36,21 +36,19 @@ module.exports = function (RED) {
 					return unloader(input, {mode: 'object', type: 'bool', padding: pad});
 				}
 			};
-			var p = dot.pick(this.prop, msg);
-			if (p == undefined) {
-				errorHandler(`Property ${this.prop} is undefined`, msg);
+			var value = dot.pick(this.prop, msg);
+			if (value == undefined) {
+				this.errorHandler(`Property ${this.prop} is undefined`, msg);
+			} else if (isNaN(value)) {
+				this.errorHandler('Input is not a number or parsable string.', msg);
 			} else {
-				p = Math.abs(parseInt(p));
-				if (isNaN(p)) {
-					errorHandler('Input is not a number or parsable string.', msg);
-				} else {
-					try {
-						p = this.switchMode[this.mode](p, this.padding);
-					} catch (err) {
-						errorHandler(err, msg);
-					}
+				value = Math.abs(value);
+				try {
+					value = this.switchMode[this.mode](value, this.padding);
+					dot.str(this.prop, value, msg);
+				} catch (err) {
+					this.errorHandler(err, msg);
 				}
-				dot.str(this.prop, p, msg);
 				send(msg);
 				if (done) {
 					done();
