@@ -7,7 +7,7 @@
         "test": "mocha \"test/bitunloaderNode_spec.js\""
     },
     "author": "gemini86",
-    "license": "ISC",
+    "license": "BSD-2-Clause",
     "keywords": [
         "node-red",
         "bit",
