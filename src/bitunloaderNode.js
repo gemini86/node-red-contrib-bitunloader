@@ -1,4 +1,3 @@
-const dot = require('dot-object');
 const unloader = require('bitunloader');
 
 module.exports = function (RED) {
@@ -36,7 +35,7 @@ module.exports = function (RED) {
 					return unloader(input, {mode: 'object', type: 'bool', padding: pad});
 				}
 			};
-			var value = dot.pick(this.prop, msg);
+			var value = RED.util.getMessageProperty(msg, this.prop);
 			if (value == undefined) {
 				this.errorHandler(`Property ${this.prop} is undefined`, msg);
 			} else if (isNaN(value)) {
@@ -45,7 +44,7 @@ module.exports = function (RED) {
 				value = Math.abs(value);
 				try {
 					value = this.switchMode[this.mode](value, this.padding);
-					dot.str(this.prop, value, msg);
+					RED.util.setMessageProperty(msg, this.prop, value, false);
 				} catch (err) {
 					this.errorHandler(err, msg);
 				}
