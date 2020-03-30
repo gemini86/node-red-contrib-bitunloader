@@ -25,13 +25,13 @@ module.exports = function (RED) {
 				input.forEach((element, index) => {
 					input[index] = element.toString();
 				});
-				return parseInt(input.reduce((acc,val) => acc + val), 2);
+				return parseInt(input.reduce((acc,val) => acc + val).split('').reverse().join(''), 2);
 			},
 			arrayBools: function (input) {
 				input.forEach((element, index) => {
 					input[index] = element ? '1' : '0';
 				});
-				return parseInt(input.reduce((acc,val) => acc + val), 2);
+				return parseInt(input.reduce((acc,val) => acc + val).split('').reverse().join(''), 2);
 			},
 			objectBits: function (input) {
 				let result = '';
