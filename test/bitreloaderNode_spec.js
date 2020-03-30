@@ -61,18 +61,18 @@ describe('bitreloader Node', function () {
 			try {
 				n3a.on('input', function (msg) {
 					msg.should.have.property('payload');
-					msg.payload.should.have.property('number', '111');
+					msg.payload.should.have.property('number', '101010');
 					msg.should.have.property('_prop', 'payload.number');
 					msg.should.have.property('_mode', 'string');
 				});
 				n3b.on('input', function (msg) {
 					msg.should.have.property('payload');
-					msg.payload.should.have.property('number', 7);
+					msg.payload.should.have.property('number', 42);
 				});
 			} catch (err) {
 				done(err);
 			}
-			n1.receive({ payload: {number: 7 } });
+			n1.receive({ payload: {number: 42 } });
 			done();
 		});
 	});
@@ -90,19 +90,16 @@ describe('bitreloader Node', function () {
 			try {
 				n3a.on('input', function (msg) {
 					msg.should.have.property('payload');
-					msg.payload.should.have.property('number').which.is.an.Array();
-					msg.payload.number.should.have.length(2);
-					msg.payload.number[0].should.be.exactly(1);
-					msg.payload.number[1].should.be.exactly(1);
+					msg.payload.should.have.property('number', [0,1,0,1,0,1]);
 				});
 				n3b.on('input', function (msg) {
 					msg.should.have.property('payload');
-					msg.payload.should.have.property('number', 3);
+					msg.payload.should.have.property('number', 42);
 				});
 			} catch (err) {
 				done(err);
 			}
-			n1.receive({ payload: {number: 3 } });
+			n1.receive({ payload: {number: 42 } });
 			done();
 		});
 	});
@@ -120,17 +117,15 @@ describe('bitreloader Node', function () {
 			try {
 				n3a.on('input', function (msg) {
 					msg.should.have.property('payload');
-					msg.payload.should.have.property('number').which.is.an.Array();
-					msg.payload.number[0].should.equal(false);
-					msg.payload.number[1].should.equal(true);
+					msg.payload.should.have.property('number', [false,true,false,true,false,true]);
 				});
 				n3b.on('input', function (msg) {
-					msg.payload.should.have.property('number', 2);
+					msg.payload.should.have.property('number', 42);
 				});
 			} catch (err) {
 				done(err);
 			}
-			n1.receive({ payload: {number: 2 } });
+			n1.receive({ payload: {number: 42 } });
 			done();
 		});
 	});
@@ -148,17 +143,15 @@ describe('bitreloader Node', function () {
 			try {
 				n3a.on('input', function (msg) {
 					msg.should.have.property('payload');
-					msg.payload.should.have.property('number').which.is.an.Object();
-					msg.payload.number.should.have.ownProperty('b0', 0);
-					msg.payload.number.should.have.ownProperty('b1', 1);
+					msg.payload.should.have.property('number', {b0:0,b1:1,b2:0,b3:1,b4:0,b5:1});
 				});
 				n3b.on('input', function (msg) {
-					msg.payload.should.have.property('number', 2);
+					msg.payload.should.have.property('number', 42);
 				});
 			} catch (err) {
 				done(err);
 			}
-			n1.receive({ payload: {number: 2 } });
+			n1.receive({ payload: {number: 42 } });
 			done();
 		});
 	});
@@ -175,19 +168,15 @@ describe('bitreloader Node', function () {
 			try {
 				n3a.on('input', function (msg) {
 					msg.should.have.property('payload');
-					msg.payload.should.have.property('number').which.is.an.Object();
-					msg.payload.number.should.have.ownProperty('b0');
-					msg.payload.number.should.have.ownProperty('b1');
-					msg.payload.number['b0'].should.be.false;
-					msg.payload.number['b1'].should.be.true;
+					msg.payload.should.have.property('number', {b0:false,b1:true,b2:false,b3:true,b4:false,b5:true});
 				});
 				n3b.on('input', function (msg) {
-					msg.payload.should.have.property('number', 2);
+					msg.payload.should.have.property('number', 42);
 				});
 			} catch (err) {
 				done(err);
 			}
-			n1.receive({ payload: {number: 2 } });
+			n1.receive({ payload: {number: 42 } });
 			done();
 		});
 	});
