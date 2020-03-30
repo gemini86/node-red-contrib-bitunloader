@@ -1,0 +1,35 @@
+<script type="text/javascript">
+	RED.nodes.registerType('bitreloader', {
+		category: 'function',
+		color: '#AAAA66',
+		defaults:{
+			name: {value:''}
+		},
+		inputs:1,
+		outputs:1,
+		icon: 'binary_40x60.png',
+		align: 'right',
+		label: function() {
+            return this.name || 'bitreloader';
+        },
+		labelStyle: function() {
+            return this.name?'node_label_italic':'';
+        }
+	});
+</script>
+
+<script type="text/html" data-template-name="bitreloader">
+    <div class="form-row">
+        <label for="node-input-name" style="width:120px;"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+</script>
+
+<script type="text/html" data-help-name="bitreloader">
+    <p>Converts messages which were altered by a bitunloader node back to a number.</p>
+    <h3>Details</h3>
+    <p><b>Note: works with bitunloader node only</b></p>
+    <p>The property referenced in <code>msg._prop</code> is converted back to a number using a solution chosen depending on the value of <code>msg._mode</code><br>
+    <b>Warning:</b> if the property that has been "unloaded" changes type (eg. from an array of bits to an object of bools) between the bitunloader node and bitreloader node, this will result in an error produced by the bitreloader node.
+    </p>
+</script>

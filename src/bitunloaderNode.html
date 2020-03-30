@@ -3,19 +3,19 @@
         category: 'function',
         color: '#AAAA66',
         defaults: {
-            name: {value:""},
-            mode: {value:"string",required:true},
-            prop: {value:"payload"},
-            padding: {value:"none"},
+            name: {value:''},
+            mode: {value:'string',required:true},
+            prop: {value:'payload'},
+            padding: {value:'none'},
         },
         inputs:1,
         outputs:1,
-        icon: "binary_40x60.png",
+        icon: 'binary_40x60.png',
         label: function() {
-            return this.name || "bitunloader";
+            return this.name || 'bitunloader';
         },
         labelStyle: function() {
-            return this.name?"node_label_italic":"";
+            return this.name?'node_label_italic':'';
         },
         outputLabels: function() {
             let mode;
@@ -47,6 +47,7 @@
             }
         }
     });
+
 </script>
 
 <script type="text/html" data-template-name="bitunloader">
