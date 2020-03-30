@@ -42,6 +42,8 @@ module.exports = function (RED) {
 				this.errorHandler('Input is not a number or parsable string.', msg);
 			} else {
 				value = Math.abs(value);
+				msg._mode = this.mode;
+				msg._prop = this.prop;
 				try {
 					value = this.switchMode[this.mode](value, this.padding);
 					RED.util.setMessageProperty(msg, this.prop, value, false);
