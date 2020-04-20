@@ -42,6 +42,7 @@
   },
   "homepage": "https://github.com/gemini86/node-red-contrib-bitunloader#readme",
   "directories": {
+	"examples": "examples",
     "test": "test",
     "src": "src"
   }
