@@ -16,7 +16,18 @@ function checkNestedObject (obj, prop) {
 module.exports = function (RED) {
 	function BitReloaderNode(config) {
 		RED.nodes.createNode(this, config);
+		function configAutoMode () {
+			if (config.autoMode === 'auto') {
+				node.prop = node.mode = '';
+				return true;
+			} else {
+				node.prop = config.prop;
+				node.mode = config.mode;
+				return false;
+			}
+		}
 		let node = this;
+		node.autoMode = configAutoMode();
 		node.solution = {
 			string: function (input) {
 				return parseInt(input, 2);
@@ -52,20 +63,22 @@ module.exports = function (RED) {
 					node.error(e, msg);
 				}
 			};
+			if (node.autoMode) {
+				node.prop = msg._prop;
+				node.mode = msg._mode;
+			}
 			var value;
-			if (checkNestedObject(msg, msg._prop)){
-				value = RED.util.getMessageProperty(msg, msg._prop);
-				if (msg._mode) {
-					if (Object.prototype.hasOwnProperty.call(node.solution, msg._mode)) {
-						try {
-							value = node.solution[msg._mode](value);
-							RED.util.setMessageProperty(msg, msg._prop, value, false);
-						} catch (err) {
-							this.errorHandler(err, msg);
-						}
-					} else {
-						this.errorHandler('Unable to determine bitunloader mode, has msg._mode been altered?', msg);
+			if (checkNestedObject(msg, node.prop)){
+				value = RED.util.getMessageProperty(msg, node.prop);
+				if (Object.prototype.hasOwnProperty.call(node.solution, node.mode)) {
+					try {
+						value = node.solution[node.mode](value);
+						RED.util.setMessageProperty(msg, node.prop, value, false);
+					} catch (err) {
+						this.errorHandler(err, msg);
 					}
+				} else {
+					this.errorHandler('Unable to determine bitunloader mode, has msg._mode been altered?', msg);
 				}
 			} else {
 				this.errorHandler('msg._prop points to a message property which does not exist', msg);
