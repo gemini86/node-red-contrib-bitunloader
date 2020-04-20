@@ -23,7 +23,7 @@
 			$("#node-input-autoMode").on("change", function(e) {
 				var val = $(this).val();
 			    $(".node-row-config").toggle(val==='manual');
-		    }
+		    });
 			$("#node-input-prop").typedInput({default:'msg',types:['msg']});
 		},
 		oneditsave: function() {
@@ -57,14 +57,14 @@
 	            <option value="objectBools">Object of bools</option>
 	        </select>
 	    </div>
-		<div class="form-tips">
-			In auto mode, this node will accept a msg from a bitunloader node and automatically reverse the unloading action, using the inverse of the mode chosen in the bitunloader node. In manual configuration mode, you can specify the <code>msg</code> property and data format manually for use without a bitunloader node.
-		</div>
 	</div>
 	<div class="form-row">
         <label for="node-input-name" style="width:120px;"><i class="fa fa-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
+	<div class="form-tips">
+		In auto configuration mode, bitreloader node will accept a msg from a bitunloader node and automatically reverse the unloading action. In manual configuration mode, you can specify the <code>msg</code> property and data format manually for use without a bitunloader node.
+	</div>
 </script>
 
 <script type="text/html" data-help-name="bitreloader">

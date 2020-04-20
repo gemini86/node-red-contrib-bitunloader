@@ -63,7 +63,7 @@ module.exports = function (RED) {
 					node.error(e, msg);
 				}
 			};
-			if (node.autoMode === false) {
+			if (node.autoMode) {
 				node.prop = msg._prop;
 				node.mode = msg._mode;
 			}
@@ -73,7 +73,7 @@ module.exports = function (RED) {
 				if (Object.prototype.hasOwnProperty.call(node.solution, node.mode)) {
 					try {
 						value = node.solution[node.mode](value);
-						RED.util.setMessageProperty(msg, msg._prop, value, false);
+						RED.util.setMessageProperty(msg, node.prop, value, false);
 					} catch (err) {
 						this.errorHandler(err, msg);
 					}
