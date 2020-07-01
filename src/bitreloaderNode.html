@@ -70,8 +70,8 @@
 <script type="text/html" data-help-name="bitreloader">
     <p>Converts messages which were altered by a bitunloader node back to a number.</p>
     <h3>Details</h3>
-    <p><b>Note: works with bitunloader node only</b></p>
-    <p>The property referenced in <code>msg._prop</code> is converted back to a number using a solution chosen depending on the value of <code>msg._mode</code><br>
+    <p>Set the mode in configuration to <code>Automatic</code> to use with a bitunloader node without any further configuration.</p><br>
+	<p>You can also use the bitreloader node stand-alone by setting the configuration to 'manual'. This will allow you to configure the msg property that you wish to turn into an integer as well as define the input data format of the msg property.</p>
     <b>Warning:</b> if the property that has been "unloaded" changes type (eg. from an array of bits to an object of bools) between the bitunloader node and bitreloader node, this will result in an error produced by the bitreloader node.
     </p>
 </script>
